@@ -24,15 +24,16 @@ function load() {
             })
         })
 }
-
+// acha o index
 function findPosition(idElement) {
+    //faz um fech pra ver os links que tem
     fetch("http://192.168.0.8:5000/api/")
         .then((res) => {
             return res.json()
         })
         .then((json) => {
             let links = JSON.parse(json);
-            
+            // tenta achar o index(ta dando erro)
             links.findIndex((link) => {
                 console.log(link.name);
                 if(link.id === idElement) {
@@ -43,6 +44,8 @@ function findPosition(idElement) {
         })
 }
 
+// pega o id do elemento, passa para a função de achar posição(que não está dando certo)
+// joga o index nas options e depois no fetch o back end trata disso
 function deleteLink(id) {
     let idElement = {id};
     console.log(idElement.id);
@@ -107,6 +110,7 @@ function removeElement(el) {
     let id = el.parentNode.id;
     
     if (confirm('Tem certeza que deseja deletar?'))
+        // funcao de apagar do back
         deleteLink(id);
         el.parentNode.remove()
 }
