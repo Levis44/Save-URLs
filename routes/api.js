@@ -14,7 +14,6 @@ router.post("/new", bodyParser.json(), (req, res) => {
     let name = req.body.name;
     let url = req.body.url;
     let id = req.body.id;
-    console.log(name, url);
     urls.push({id, name, url});
 
     res.send("Post Adicionado!")
@@ -22,6 +21,7 @@ router.post("/new", bodyParser.json(), (req, res) => {
 
 router.delete("/delete", bodyParser.json(), (req, res) => {
     let position = req.body.position;
+    console.log(position);
     urls.splice(position, 1);
     res.send("Post removido!")
 

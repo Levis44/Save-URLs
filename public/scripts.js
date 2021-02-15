@@ -26,6 +26,7 @@ function load() {
 }
 // acha o index
 function findPosition(idElement) {
+    let contador = 1;
     //faz um fech pra ver os links que tem
     fetch("http://192.168.0.8:5000/api/")
         .then((res) => {
@@ -33,36 +34,40 @@ function findPosition(idElement) {
         })
         .then((json) => {
             let links = JSON.parse(json);
+            
             // tenta achar o index(ta dando erro)
-            links.findIndex((link) => {
-                console.log(link.name);
+            links.forEach((link) => {
+                console.log(link);
+                console.log(contador);
                 if(link.id === idElement) {
-                    return link
+                    return
                 }
+                contador++;
 
             })
+            
+            
         })
+
+        return contador;
 }
 
 // pega o id do elemento, passa para a função de achar posição(que não está dando certo)
 // joga o index nas options e depois no fetch o back end trata disso
-function deleteLink(id) {
+ async function deleteLink(id) {
     let idElement = {id};
-    console.log(idElement.id);
-    let index = findPosition(idElement.id)
-    
+    let number = await findPosition(idElement.id)
+    console.log(number);
+    position = {position:number}
+    console.log(position);
     
     const options = {
         method: "DELETE",
         headers: new Headers({'content-type': 'application/json'}),
-        body: JSON.stringify(index)
+        body: JSON.stringify(position)
     }
 
-    // fetch("http://192.168.0.8:5000/api/delete", options)
-    //     .then(res => {
-            
-    //         load();
-    //     })
+    fetch("http://192.168.0.8:5000/api/delete", options);
 }
 
 form.addEventListener("submit", (event) => {
