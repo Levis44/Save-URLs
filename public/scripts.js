@@ -25,10 +25,10 @@ function load() {
         })
 }
 // acha o index
-function findPosition(idElement) {
-    let contador = 1;
+async function findPosition(idElement) {
+    let contador = 0;
     //faz um fech pra ver os links que tem
-    fetch("http://192.168.0.8:5000/api/")
+    await fetch("http://192.168.0.8:5000/api/")
         .then((res) => {
             return res.json()
         })
@@ -48,14 +48,15 @@ function findPosition(idElement) {
             
             
         })
-
         return contador;
+        
 }
 
 // pega o id do elemento, passa para a função de achar posição(que não está dando certo)
 // joga o index nas options e depois no fetch o back end trata disso
- async function deleteLink(id) {
+async function deleteLink(id) {
     let idElement = {id};
+    console.log(id, idElement);
     let number = await findPosition(idElement.id)
     console.log(number);
     position = {position:number}
